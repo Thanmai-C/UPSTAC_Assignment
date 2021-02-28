@@ -30,9 +30,6 @@ public class LabRequestController {
 
     Logger log = LoggerFactory.getLogger(LabRequestController.class);
 
-
-
-
     @Autowired
     private TestRequestUpdateService testRequestUpdateService;
 
@@ -42,22 +39,14 @@ public class LabRequestController {
     @Autowired
     private TestRequestFlowService testRequestFlowService;
 
-
-
     @Autowired
     private UserLoggedInService userLoggedInService;
-
-
 
     @GetMapping("/to-be-tested")
     @PreAuthorize("hasAnyRole('TESTER')")
     public List<TestRequest> getForTests()  {
 
-
        return testRequestQueryService.findBy(RequestStatus.INITIATED);
-
-
-
 
     }
 
@@ -74,6 +63,7 @@ public class LabRequestController {
 
         // throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented"); // replace this line with your code
 
+        // Change done by Thanmai C
         User tester = userLoggedInService.getLoggedInUser();
         return testRequestQueryService.findByTester(tester);
 
@@ -83,8 +73,6 @@ public class LabRequestController {
     @PreAuthorize("hasAnyRole('TESTER')")
     @PutMapping("/assign/{id}")
     public TestRequest assignForLabTest(@PathVariable Long id) {
-
-
 
         User tester =userLoggedInService.getLoggedInUser();
 
@@ -100,16 +88,11 @@ public class LabRequestController {
             User tester=userLoggedInService.getLoggedInUser();
             return testRequestUpdateService.updateLabTest(id,createLabResult,tester);
 
-
         } catch (ConstraintViolationException e) {
             throw asConstraintViolation(e);
         }catch (AppException e) {
             throw asBadRequest(e.getMessage());
         }
     }
-
-
-
-
 
 }

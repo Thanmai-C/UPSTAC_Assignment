@@ -23,16 +23,11 @@ import static org.upgrad.upstac.exception.UpgradResponseStatusException.asConstr
 
 import org.upgrad.upstac.testrequests.RequestStatus;
 
-
-
 @RestController
 @RequestMapping("/api/consultations")
 public class ConsultationController {
 
     Logger log = LoggerFactory.getLogger(ConsultationController.class);
-
-
-
 
     @Autowired
     private TestRequestUpdateService testRequestUpdateService;
@@ -47,14 +42,11 @@ public class ConsultationController {
     @Autowired
     private UserLoggedInService userLoggedInService;
 
-
-
     @GetMapping("/in-queue")
     @PreAuthorize("hasAnyRole('DOCTOR')")
     public List<TestRequest> getForConsultations()  {
 
         // Implement this method
-
 
         //Implement this method to get the list of test requests having status as 'LAB_TEST_COMPLETED'
         // make use of the findBy() method from testRequestQueryService class
@@ -64,6 +56,7 @@ public class ConsultationController {
         // replace this line of code with your implementation
         // throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
 
+        // Change done by Thanmai C 
         return testRequestQueryService.findBy(RequestStatus.LAB_TEST_COMPLETED);
 
     }
@@ -82,6 +75,7 @@ public class ConsultationController {
         // replace this line of code with your implementation
         // throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
 
+        // Change done by Thanmai C 
         User doctor = userLoggedInService.getLoggedInUser();
         return testRequestQueryService.findByDoctor(doctor);
 
@@ -103,6 +97,8 @@ public class ConsultationController {
         try {
             // replace this line of code with your implementation
             // throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
+
+            // Change done by Thanmai C 
             User doctor = userLoggedInService.getLoggedInUser();
             return testRequestUpdateService.assignForConsultation(id, doctor);
 
@@ -129,6 +125,7 @@ public class ConsultationController {
             // replace this line of code with your implementation
             // throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
 
+            // Change done by Thanmai C 
             User doctor = userLoggedInService.getLoggedInUser();
             return testRequestUpdateService.updateConsultation(id, testResult, doctor );
 
@@ -138,7 +135,5 @@ public class ConsultationController {
             throw asBadRequest(e.getMessage());
         }
     }
-
-
 
 }
